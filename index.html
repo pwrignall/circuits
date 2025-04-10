@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circuits</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Landing Page / Exercise Selection -->
+    <div id="setup-screen" class="container">
+        <div class="header">
+            <h1>Circuits</h1>
+            <p class="subtitle">Select your exercises</p>
+        </div>
+        
+        <div class="settings-container">
+            <div class="setting-group">
+                <label for="exercise-time">Exercise Time (seconds):</label>
+                <input type="number" id="exercise-time" value="40" min="10" max="120">
+            </div>
+            <div class="setting-group">
+                <label for="rest-time">Rest Time (seconds):</label>
+                <input type="number" id="rest-time" value="20" min="5" max="60">
+            </div>
+        </div>
+        
+        <div class="exercise-selection">
+            <h2>Select exercises</h2>
+            <div class="selection-actions">
+                <button id="select-all" class="action-btn">Select All</button>
+                <button id="deselect-all" class="action-btn">Deselect All</button>
+                <button id="randomize" class="action-btn">Randomize 10</button>
+            </div>
+            
+            <div id="exercise-list" class="exercise-list">
+                <!-- Exercise checkboxes will be inserted here by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="selected-summary">
+            <span>Selected: </span>
+            <span id="selected-count">0</span> exercises
+        </div>
+        
+        <button id="start-workout-btn" class="btn primary-btn">Start Workout</button>
+    </div>
+    
+    <!-- Workout Screen (initially hidden) -->
+    <div id="workout-screen" class="container hidden">
+        <div class="header">
+            <h1>Circuit Training</h1>
+        </div>
+        
+        <div class="timer-container">
+            <div id="timer" class="timer">00:00</div>
+            <div class="timer-label">seconds remaining</div>
+        </div>
+        
+        <div class="exercise-container">
+            <h2 id="current-exercise">Loading...</h2>
+            <div class="next-container">
+                <span>Next: </span>
+                <span id="next-exercise">-</span>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="pause-btn" class="btn">Pause</button>
+            <button id="reset-btn" class="btn">Reset</button>
+            <button id="back-to-setup-btn" class="btn">Back to Setup</button>
+        </div>
+        
+        <div class="status">
+            <div id="status-message" class="status-message">Loading workout...</div>
+            <div id="progress" class="progress">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

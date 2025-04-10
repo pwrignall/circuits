@@ -1,0 +1,276 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-height: 100vh;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.subtitle {
+    margin-top: 5px;
+    color: #7f8c8d;
+}
+
+/* Setup screen styles */
+.settings-container {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.setting-group {
+    margin-bottom: 15px;
+    flex-basis: 48%;
+}
+
+.setting-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.setting-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.exercise-selection {
+    margin-bottom: 25px;
+}
+
+.exercise-selection h2 {
+    margin-bottom: 15px;
+}
+
+.selection-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.action-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.action-btn:hover {
+    background-color: #d0d0d0;
+}
+
+.exercise-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.exercise-item {
+    padding: 8px 5px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.exercise-item:last-child {
+    border-bottom: none;
+}
+
+.exercise-item input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.exercise-item label {
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+.selected-summary {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.primary-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.primary-btn:hover {
+    background-color: #2980b9;
+}
+
+.primary-btn:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+}
+
+/* Workout screen styles */
+.timer-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.timer {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.timer-label {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.exercise-container {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+#current-exercise {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.next-container {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    flex-grow: 1;
+    text-align: center;
+}
+
+#pause-btn {
+    background-color: #3498db;
+    color: white;
+}
+
+#pause-btn:hover {
+    background-color: #2980b9;
+}
+
+#pause-btn.paused {
+    background-color: #e74c3c;
+}
+
+#reset-btn, #back-to-setup-btn {
+    background-color: #95a5a6;
+    color: white;
+}
+
+#reset-btn:hover, #back-to-setup-btn:hover {
+    background-color: #7f8c8d;
+}
+
+.status {
+    margin-top: 20px;
+}
+
+.status-message {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.progress {
+    height: 10px;
+    background-color: #ecf0f1;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #2ecc71;
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+.hidden {
+    display: none;
+}
+
+/* For mobile devices */
+@media (max-width: 480px) {
+    .timer {
+        font-size: 3rem;
+    }
+    
+    #current-exercise {
+        font-size: 1.8rem;
+    }
+    
+    .next-container {
+        font-size: 1rem;
+    }
+    
+    .btn {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    
+    .settings-container {
+        flex-direction: column;
+    }
+    
+    .setting-group {
+        flex-basis: 100%;
+    }
+}
