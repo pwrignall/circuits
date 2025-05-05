@@ -1,30 +1,33 @@
 // Available exercises list
 const availableExercises = [
-    "High Knees",
     "Push-ups",
-    "Mountain Climbers",
+    "Hip Thrusts",
     "Squats",
-    "Jumping Jacks",
-    "Burpees",
     "Plank",
     "Lunges",
     "Tricep Dips",
     "Bicycle Crunches",
-    "Jump Squats",
-    "Shoulder Taps",
-    "Side Plank (Right)",
-    "Side Plank (Left)",
-    "Russian Twists",
-    "Leg Raises",
     "Lateral Lunges",
     "Dumbbell Rows",
-    "Superman",
     "Glute Bridges",
-    "Calf Raises",
+    "Shoulder Press",
+    "Deadlifts",
+    "Bicep Curls",
     "Wall Sit",
     "Bear Crawl",
     "Inchworm",
-    "Hip Thrusts"
+    "Calf Raises",
+    "Superman",
+    "Leg Raises",
+    "Russian Twists",
+    "Side Plank (Left)",
+    "Side Plank (Right)",
+    "Shoulder Taps",
+    "Jump Squats",
+    "Burpees",
+    "Jumping Jacks",
+    "Mountain Climbers",
+    "High Knees",
 ];
 
 // DOM elements for setup screen
@@ -38,6 +41,8 @@ const randomizeBtn = document.getElementById('randomize');
 const startWorkoutBtn = document.getElementById('start-workout-btn');
 const exerciseTimeInput = document.getElementById('exercise-time');
 const restTimeInput = document.getElementById('rest-time');
+const muteButton = document.getElementById('mute-btn');
+let isMuted = false;
 
 // DOM elements for workout screen
 const timerElement = document.getElementById('timer');
@@ -48,6 +53,9 @@ const resetButton = document.getElementById('reset-btn');
 const backToSetupBtn = document.getElementById('back-to-setup-btn');
 const statusMessage = document.getElementById('status-message');
 const progressBar = document.getElementById('progress-bar');
+const exerciseStartSound = document.getElementById('exercise-start-sound');
+const exerciseEndSound = document.getElementById('exercise-end-sound');
+const workoutCompleteSound = document.getElementById('workout-complete-sound');
 
 // App state
 let workout = {
@@ -254,6 +262,11 @@ function startTimer() {
         if (isPaused) return;
         
         if (timeRemaining > 0) {
+            // Play sounds when 3 seconds remain to alert the user
+            if (timeRemaining === 3) {
+                exerciseEndSound.play().catch(e => console.log('Error playing sound:', e));
+            }
+            
             timeRemaining--;
             elapsedTime++;
             updateTimerDisplay();
@@ -264,6 +277,8 @@ function startTimer() {
                 isResting = false;
                 timeRemaining = workout.exerciseTime;
                 updateExerciseDisplay();
+                // Play sound to signal exercise start
+                exerciseStartSound.play().catch(e => console.log('Error playing sound:', e));
             } else {
                 // Exercise is done
                 currentExerciseIndex++;
@@ -275,6 +290,8 @@ function startTimer() {
                     nextExerciseElement.textContent = '';
                     statusMessage.textContent = 'Great job! You finished the circuit.';
                     pauseButton.disabled = true;
+                    // Play workout complete sound
+                    workoutCompleteSound.play().catch(e => console.log('Error playing sound:', e));
                     return;
                 }
                 
@@ -282,6 +299,7 @@ function startTimer() {
                 isResting = true;
                 timeRemaining = workout.restTime;
                 updateExerciseDisplay();
+                // No sound needed for rest start
             }
         }
     }, 1000);
@@ -320,8 +338,24 @@ function resetWorkout() {
     updateExerciseDisplay();
     updateProgress();
     
+    // Play sound to indicate workout start
+    exerciseStartSound.play().catch(e => console.log('Error playing sound:', e));
+    
     startTimer();
 }
+
+// Add this function
+function toggleMute() {
+    isMuted = !isMuted;
+    
+    // Update all audio elements
+    exerciseStartSound.muted = isMuted;
+    exerciseEndSound.muted = isMuted;
+    workoutCompleteSound.muted = isMuted;
+    
+    muteButton.textContent = isMuted ? 'Unmute Sounds' : 'Mute Sounds';
+}
+
 
 // Return to setup screen
 function backToSetup() {
@@ -341,6 +375,8 @@ startWorkoutBtn.addEventListener('click', startWorkout);
 pauseButton.addEventListener('click', togglePause);
 resetButton.addEventListener('click', resetWorkout);
 backToSetupBtn.addEventListener('click', backToSetup);
+muteButton.addEventListener('click', toggleMute);
+
 
 // Initialize the app
 function initApp() {
