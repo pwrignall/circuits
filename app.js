@@ -1,14 +1,16 @@
 // Available exercises list
 const availableExercises = [
     "Push-ups",
-    "Hip Thrusts",
+    "Hip Thrusts (left)",
+    "Hip Thrusts (right)",
     "Squats",
     "Plank",
     "Lunges",
     "Tricep Dips",
     "Bicycle Crunches",
     "Lateral Lunges",
-    "Dumbbell Rows",
+    "Dumbbell Rows (left)",
+    "Dumbbell Rows (right)",
     "Glute Bridges",
     "Shoulder Press",
     "Deadlifts",
@@ -20,8 +22,8 @@ const availableExercises = [
     "Superman",
     "Leg Raises",
     "Russian Twists",
-    "Side Plank (Left)",
-    "Side Plank (Right)",
+    "Side Plank (left)",
+    "Side Plank (right)",
     "Shoulder Taps",
     "Jump Squats",
     "Burpees",
@@ -263,7 +265,7 @@ function startTimer() {
         
         if (timeRemaining > 0) {
             // Play sounds when 3 seconds remain to alert the user
-            if (timeRemaining === 3) {
+            if (timeRemaining === 4) {
                 exerciseEndSound.play().catch(e => console.log('Error playing sound:', e));
             }
             
@@ -338,10 +340,23 @@ function resetWorkout() {
     updateExerciseDisplay();
     updateProgress();
     
-    // Play sound to indicate workout start
-    exerciseStartSound.play().catch(e => console.log('Error playing sound:', e));
-    
-    startTimer();
+    // Start 3-second countdown before the first interval
+    let countdown = 3;
+    statusMessage.textContent = `Starting in ${countdown}...`;
+    const countdownInterval = setInterval(() => {
+        countdown--;
+        if (countdown > 0) {
+            statusMessage.textContent = `Starting in ${countdown}...`;
+        } else {
+            clearInterval(countdownInterval);
+            statusMessage.textContent = 'Go!';
+            // Play sound to indicate workout start
+            exerciseStartSound.play().catch(e => console.log('Error playing sound:', e));
+            pauseButton.disabled = false; // Enable pause button after countdown
+            startTimer(); // Start the workout timer
+        }
+    }, 1000);
+
 }
 
 // Add this function
